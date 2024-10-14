@@ -138,7 +138,7 @@ bool String::operator < (const String& other) const {
         //compare lowercase chars
         ch1 += 0x20 * ('A' <= ch1 && ch1 <= 'Z');
         ch2 += 0x20 * ('A' <= ch2 && ch2 <= 'Z');
-        if (ch1 != ch2 || ch1) break;
+        if (ch1 != ch2 || !ch1) break;
         ++iter1;
         ++iter2;
     }
