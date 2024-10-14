@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <stdlib.h>
+#include <iostream>
 #pragma once
 class String {
 private:
@@ -15,52 +16,55 @@ private:
     String(size_t capacity, size_t length, char* buffer);
 public:
 
-    //REQUIERED 
-    //empty constructor
+    //REQUIERED methods
+
+    //create
     String();
-
-    //from C-string
-    String(char const* c_str);
-
-    //copy construcor
-    String(const String& reference);
-
-    //Move constructor
-    String(String&& Rvalue) noexcept;
-
-    //copy assigment
-    String& operator = (const String& reference);
-
-    //move assigment
-    String& operator = (String&& Lvalue) noexcept;
-
+    String(size_t size);
     ~String();
 
-    //append String
-    String& operator += (const String& other);
+    //copy
+    String(const String& reference);
+    String(char const* c_str);
+    String& operator = (const String& reference);
 
-    //append C-string
+    //move
+    String(String&& Rvalue) noexcept;
+    String& operator = (String&& Lvalue) noexcept;
+
+    //append
+    String& operator += (const String& other);
     String& operator += (const char* other);
 
-    //string concatinations external methods
+    //concat
     friend String operator+(const String& lhs, const String& rhs);
     friend String operator+(const String& lhs, const char* rhs);
     friend String operator+(const char* lhs, const String& rhs);
 
 
-    //ADITIONAL convertions
-    inline size_t len() const;
-    inline operator const char* () const { return buffer; }
-    operator bool() const;
+    //ADITIONAL methods
+    //compare
     bool operator == (const String& other) const;
     bool operator < (const String& other) const;
-    char& operator [] (size_t idx);
-    char const& operator [] (size_t idx) const;
-    //ADITIONAL nenory menagment
+    //geters
+    inline size_t len() const { return length; }
+    inline const char* c_str() const { return buffer; }
+    inline char& operator [] (size_t idx) { return  buffer[idx]; }
+    inline char const& operator [] (size_t idx) const { return buffer[idx]; }
+    //cast
+    inline operator const char* () const { return buffer; }
+    inline operator bool() const { return length; }
+    //resize
     void expand(size_t size);
     void enshure(size_t size);
-private:
-    //void rebuffer(size_t size);
-    static size_t pow2_capacity_calc(size_t length);
+    //streams
+    void empty();
+    friend std::ostream& operator << (std::ostream& right_stream, const String& string);
+    friend std::istream& operator >> (std::istream& left_stream, String& string);
 
+    //helper methods
+    String& log() const;
+private:
+    //return closest power of 2 biger then argument
+    static size_t pow2_capacity_calc(size_t length);
 };
