@@ -1,5 +1,6 @@
 # Targame-task
-implements custom String class Uses the class with std::set to sort provided strings in reversed order.
+Implements custom String class
+Uses the class with std::set to sort provided strings in reversed order.
 does not sensitive to char case.
 
 build with
